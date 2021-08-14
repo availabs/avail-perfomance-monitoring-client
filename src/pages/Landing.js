@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
 
-const Landing = () =>
+const Landing = () => (
   <div className="h-full flex items-center justify-center flex-col">
     <div className="text-2xl font-bold">Welcome</div>
-    <div className="text-xl">Please add new pages!</div>
+    <div className="text-xl">Add new pages!</div>
     <div className="flex items-center justify-center">
-      <img src="images/sadpanda.jpg" alt=""/>
+      <img src="images/sadpanda.jpg" alt="" />
     </div>
   </div>
+);
 
 const config = {
   path: "/",
@@ -18,8 +19,8 @@ const config = {
     fixed: true,
     headerBar: false,
     logo: "AVAIL",
-    navBar: false
-  }
-}
+    navBar: false,
+  },
+};
 
 export default config;

@@ -1,14 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 
-import ScrollToTop from 'utils/ScrollToTop'
+import ScrollToTop from "utils/ScrollToTop";
 
-import Routes from 'Routes';
+import Routes from "Routes";
 
-import {
-  DefaultLayout,
-  Messages
-} from "@availabs/avl-components"
+import { DefaultLayout, Messages } from "@availabs/avl-components";
 
 class App extends React.Component {
   render() {
@@ -16,15 +13,22 @@ class App extends React.Component {
       <BrowserRouter>
         <ScrollToTop />
         <Switch>
-          { Routes.map((route, i) =>
-              <DefaultLayout key={ i } { ...route } { ...this.props }
-                menus={ Routes.filter(r => r.mainNav) }/>
-            )
-          }
+          {Routes.map((route, i) => {
+            console.log(route.path);
+
+            return (
+              <DefaultLayout
+                key={i}
+                {...route}
+                {...this.props}
+                menus={Routes.filter((r) => r.mainNav)}
+              />
+            );
+          })}
         </Switch>
         <Messages />
       </BrowserRouter>
     );
   }
 }
-export default App
+export default App;

@@ -1,9 +1,8 @@
-import Landing from "pages/Landing"
-import NoMatch from "pages/404"
+import Landing from "pages/Landing";
+import NoMatch from "pages/404";
 
-const Routes = [
-  Landing,
-  NoMatch
-]
+import RequestsHistogram from "pages/avail-falcor-performance-monitoring/RequestsHistogram";
 
-export default Routes
+const Routes = [Landing, RequestsHistogram, NoMatch];
+
+export default Routes;
