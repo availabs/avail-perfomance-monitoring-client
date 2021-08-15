@@ -34,5 +34,12 @@ export default function AvgResponseTimeByRoute() {
       avg_resp_ms: avgResponseTimeByRoute[route],
     }));
 
-  return <BarGraph data={data} keys={["avg_resp_ms"]} indexBy="route" />;
+  return (
+    <div
+      style={{ padding: 50, height: 600, width: 800 }}
+      className="text-2xl font-bold"
+    >
+      <BarGraph data={data} keys={["avg_resp_ms"]} indexBy="route" />
+    </div>
+  );
 }

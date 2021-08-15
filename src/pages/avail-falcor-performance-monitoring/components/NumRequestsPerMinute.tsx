@@ -8,7 +8,7 @@ import {
 } from "../../../api/getters";
 
 export default function NumRequestsPerMinute() {
-  const [availGraphNumRequestsPerMinute, setAvailGraphNumRequestsPerMinute] =
+  const [numRequestsPerMin, setAvailGraphNumRequestsPerMinute] =
     useState<AvailGraphNumRequestsPerMinute | null>(null);
 
   useEffect(() => {
@@ -19,18 +19,23 @@ export default function NumRequestsPerMinute() {
     })();
   }, []);
 
-  if (!availGraphNumRequestsPerMinute) {
+  if (!numRequestsPerMin) {
     return <div className="text-2xl font-bold">Loading</div>;
   }
 
-  const data = Object.keys(availGraphNumRequestsPerMinute)
+  const data = Object.keys(numRequestsPerMin)
     .sort()
     .map((timestamp) => ({
       timestamp,
-      num_req_per_min: availGraphNumRequestsPerMinute[timestamp],
+      num_req_per_min: numRequestsPerMin[timestamp],
     }));
 
   return (
-    <BarGraph data={data} keys={["num_req_per_min"]} indexBy="timestamp" />
+    <div
+      style={{ padding: 50, height: 600, width: 800 }}
+      className="text-2xl font-bold"
+    >
+      <BarGraph data={data} keys={["num_req_per_min"]} indexBy="timestamp" />
+    </div>
   );
 }

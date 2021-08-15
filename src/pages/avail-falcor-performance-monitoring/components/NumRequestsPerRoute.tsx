@@ -33,5 +33,12 @@ export default function NumRequestsPerRoute() {
       num_req: numRequestsPerRoute[route],
     }));
 
-  return <BarGraph data={data} keys={["num_req"]} indexBy="route" />;
+  return (
+    <div
+      style={{ padding: 50, height: 600, width: 800 }}
+      className="text-2xl font-bold"
+    >
+      <BarGraph data={data} keys={["num_req"]} indexBy="route" />
+    </div>
+  );
 }

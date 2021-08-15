@@ -34,5 +34,12 @@ export default function NumRequestsPerRoute() {
       xdelay_sec: excessiveDelaySecByRoute[route],
     }));
 
-  return <BarGraph data={data} keys={["xdelay_sec"]} indexBy="route" />;
+  return (
+    <div
+      style={{ padding: 50, height: 600, width: 800 }}
+      className="text-2xl font-bold"
+    >
+      <BarGraph data={data} keys={["xdelay_sec"]} indexBy="route" />
+    </div>
+  );
 }
