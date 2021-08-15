@@ -1,8 +1,11 @@
 import Landing from "pages/Landing";
 import NoMatch from "pages/404";
 
-import RequestsHistogram from "pages/avail-falcor-performance-monitoring/RequestsHistogram";
+import AvailFalcorApiPerformanceMonitoringView from "pages/avail-falcor-performance-monitoring";
 
-const Routes = [Landing, RequestsHistogram, NoMatch];
+const Routes = [Landing, AvailFalcorApiPerformanceMonitoringView];
+
+// Must be the last route
+Routes.push(NoMatch);
 
 export default Routes;

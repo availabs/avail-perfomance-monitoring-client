@@ -28,8 +28,8 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "dev": "npm run build:styles && react-scripts start",
-    "start": "npm run build:styles && NODE_ENV=development TSC_COMPILE_ON_ERROR=true react-scripts start",
-    "build": "react-scripts build",
+    "start": "ESLINT_NO_DEV_ERRORS='true' npm run build:styles && ESLINT_NO_DEV_ERRORS='true' NODE_ENV=development TSC_COMPILE_ON_ERROR=true react-scripts start",
+    "build": "ESLINT_NO_DEV_ERRORS='true' react-scripts build",
     "build:styles": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -54,9 +54,19 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
     "autoprefixer": "^10.3.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "npm-check-updates": "^11.8.3",
     "postcss": "^8.3.6",
+    "prettier": "2.3.2",
     "tailwindcss": "^2.2.7"
   }
 }
