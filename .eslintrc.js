@@ -11,6 +11,7 @@ module.exports = {
     project: "tsconfig.eslint.json",
   },
   plugins: ["jsx-a11y", "prettier", "@typescript-eslint"],
+  ignorePatterns: ["src/components/**"],
   rules: {
     "@typescript-eslint/naming-convention": "off",
     camelcase: "off",
