@@ -33,6 +33,7 @@
     "dev": "npm run build:styles && react-scripts start",
     "start": "ESLINT_NO_DEV_ERRORS='true' npm run build:styles && ESLINT_NO_DEV_ERRORS='true' NODE_ENV=development TSC_COMPILE_ON_ERROR=true react-scripts start",
     "build": "ESLINT_NO_DEV_ERRORS='true' TSC_COMPILE_ON_ERROR=true react-scripts build",
+    "deploy": "react-scripts build && aws s3 sync build/ s3://avlgraph-logs",
     "build:styles": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
