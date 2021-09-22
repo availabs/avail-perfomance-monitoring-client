@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { BarGraph } from "components/avl-graph/src/index";
 
@@ -7,17 +7,21 @@ import {
   AvailGraphAvgResponseTimeByRoute,
 } from "../../../api/getters";
 
+import Context from "../state/ViewContext";
+
 export default function AvgResponseTimeByRoute() {
+  const requestTimeFrame = useContext(Context);
+
   const [avgResponseTimeByRoute, setAvgResponseTimeByRoute] =
     useState<AvailGraphAvgResponseTimeByRoute | null>(null);
 
   useEffect(() => {
     (async () => {
-      const d = await getAvailGraphAvgResponseTimeByRoute();
+      const d = await getAvailGraphAvgResponseTimeByRoute(requestTimeFrame);
 
       setAvgResponseTimeByRoute(d);
     })();
-  }, []);
+  }, [requestTimeFrame]);
 
   if (!avgResponseTimeByRoute) {
     return <div className="text-2xl font-bold">Loading</div>;

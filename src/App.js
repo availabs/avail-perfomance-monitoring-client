@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BrowserRouter, Switch } from "react-router-dom";
 
 import ScrollToTop from "utils/ScrollToTop";
@@ -14,8 +15,6 @@ class App extends React.Component {
         <ScrollToTop />
         <Switch>
           {Routes.map((route, i) => {
-            console.log(route.path);
-
             return (
               <DefaultLayout
                 key={i}

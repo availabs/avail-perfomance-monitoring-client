@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { BarGraph } from "components/avl-graph/src/index";
 
@@ -7,17 +7,21 @@ import {
   AvailGraphExcessiveDelaySecByRoute,
 } from "../../../api/getters";
 
+import Context from "../state/ViewContext";
+
 export default function NumRequestsPerRoute() {
+  const requestTimeFrame = useContext(Context);
+
   const [excessiveDelaySecByRoute, setExcessiveDelaySecByRoute] =
     useState<AvailGraphExcessiveDelaySecByRoute | null>(null);
 
   useEffect(() => {
     (async () => {
-      const d = await getAvailGraphExcessiveDelaySecByRoute();
+      const d = await getAvailGraphExcessiveDelaySecByRoute(requestTimeFrame);
 
       setExcessiveDelaySecByRoute(d);
     })();
-  }, []);
+  }, [requestTimeFrame]);
 
   if (!excessiveDelaySecByRoute) {
     return <div className="text-2xl font-bold">Loading</div>;
