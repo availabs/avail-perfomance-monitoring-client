@@ -9,7 +9,11 @@ import AvgResponseTimeByRoute from "./components/AvgResponseTimeByRoute";
 import NumRequestsPerRoute from "./components/NumRequestsPerRoute";
 import ExcessiveDelaySecByRoute from "./components/ExcessiveDelaySecByRoute";
 
-enum VizLabel {
+import Context from "./state/ViewContext";
+
+import { ApiRequestTimeFrame } from "../../api/getters";
+
+export enum VizLabel {
   RoutesPerformanceSummary = "Summary Table",
   AvgResponseTimeByMinute = "Avg Response Time By Minute",
   NumRequestsPerMinute = "Num Requests By Minute",
@@ -27,10 +31,17 @@ const visualizations: Record<VizLabel, ReactElement> = {
   [VizLabel.ExcessiveDelaySecByRoute]: <ExcessiveDelaySecByRoute />,
 };
 
-const options = Object.keys(visualizations).map((label) => ({
+const vizOptions = Object.keys(visualizations).map((label) => ({
   label,
   // @ts-ignore
   value: visualizations[label],
+}));
+
+const timeFrameOptions = Object.keys(ApiRequestTimeFrame).map((k) => ({
+  // @ts-ignore
+  label: ApiRequestTimeFrame[k],
+  // @ts-ignore
+  value: ApiRequestTimeFrame[k],
 }));
 
 const defaultLabel = VizLabel.RoutesPerformanceSummary;
@@ -38,6 +49,10 @@ const defaultViz = visualizations[defaultLabel];
 
 function AvailFalcorApiPerformanceMonitoringView() {
   const [viz, setViz] = useState<ReactElement>(defaultViz);
+
+  const [requestTimeFrame, setRequestTimeFrame] = useState<ApiRequestTimeFrame>(
+    ApiRequestTimeFrame.ALL_TIME
+  );
 
   return (
     <div className="h-full flex items-center justify-center flex-col">
@@ -47,13 +62,18 @@ function AvailFalcorApiPerformanceMonitoringView() {
       <div style={{ padding: 50, width: 600 }} className="text-2xl font-bold">
         <div className="font-medium">Visualization</div>
         <Select
-          options={options}
+          options={vizOptions}
           // @ts-ignore
           onChange={({ value } = {}) => value && setViz(value)}
         />
+        <Select
+          options={timeFrameOptions}
+          // @ts-ignore
+          onChange={({ value } = {}) => value && setRequestTimeFrame(value)}
+        />
       </div>
       <div style={{ padding: 50 }} className="flex items-center justify-center">
-        {viz}
+        <Context.Provider value={requestTimeFrame}>{viz}</Context.Provider>
       </div>
     </div>
   );

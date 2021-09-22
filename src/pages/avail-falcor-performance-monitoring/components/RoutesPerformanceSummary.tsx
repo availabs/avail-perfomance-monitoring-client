@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 
 import { useTable, useSortBy } from "react-table";
 
@@ -8,6 +8,8 @@ import {
   RoutePerformanceSummary,
   AvailGraphRoutesPerformanceSummary,
 } from "../../../api/getters";
+
+import Context from "../state/ViewContext";
 
 type SummaryRow = {
   route: AvailGraphRoute;
@@ -36,33 +38,32 @@ const schema = [
 ];
 
 export default function RoutePerformanceSummaryTable() {
-  console.log("RoutePerformanceSummaryTable");
+  const requestTimeFrame = useContext(Context);
+
   const [summary, setSummary] =
     useState<AvailGraphRoutesPerformanceSummary | null>(null);
 
   const columns = useMemo(() => schema, []);
 
-  const data = useMemo<SummaryRow[]>(
-    () =>
-      summary
-        ? Object.keys(summary).map((route) => ({
-            route,
-            ...summary[route],
-          }))
-        : [],
-    [summary]
-  );
+  const data = useMemo<SummaryRow[]>(() => {
+    return summary
+      ? Object.keys(summary).map((route) => ({
+          route,
+          ...summary[route],
+        }))
+      : [];
+  }, [summary]);
 
   // @ts-ignore
   const tableInstance = useTable({ columns, data }, useSortBy);
 
   useEffect(() => {
     (async () => {
-      const d = await getAvailGraphRoutesPerformanceSummary();
+      const d = await getAvailGraphRoutesPerformanceSummary(requestTimeFrame);
 
       setSummary(d);
     })();
-  }, []);
+  }, [requestTimeFrame]);
 
   if (!summary) {
     return <div className="text-2xl font-bold">Loading</div>;

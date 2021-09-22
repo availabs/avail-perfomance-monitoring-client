@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { BarGraph } from "components/avl-graph/src/index";
+
+import Context from "../state/ViewContext";
 
 import {
   getAvailGraphNumRequestsPerMinute,
@@ -8,16 +10,18 @@ import {
 } from "../../../api/getters";
 
 export default function NumRequestsPerMinute() {
+  const requestTimeFrame = useContext(Context);
+
   const [numRequestsPerMin, setAvailGraphNumRequestsPerMinute] =
     useState<AvailGraphNumRequestsPerMinute | null>(null);
 
   useEffect(() => {
     (async () => {
-      const d = await getAvailGraphNumRequestsPerMinute();
+      const d = await getAvailGraphNumRequestsPerMinute(requestTimeFrame);
 
       setAvailGraphNumRequestsPerMinute(d);
     })();
-  }, []);
+  }, [requestTimeFrame]);
 
   if (!numRequestsPerMin) {
     return <div className="text-2xl font-bold">Loading</div>;
